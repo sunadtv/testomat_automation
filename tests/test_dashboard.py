@@ -7,10 +7,12 @@ from utils.dashboard_utils import (
     search_project,
 )
 
+from core.enums import Company
+
 
 @pytest.mark.parametrize("company_name, has_projects", [
-    pytest.param("QA Club Lviv", True, id="company_with_projects"),
-    pytest.param("Free Projects", False, id="company_without_projects"),
+    pytest.param(Company.QA_CLUB_LVIV, True, id="company_with_projects"),
+    pytest.param(Company.FREE_PROJECTS, False, id="company_without_projects"),
 ])
 def test_project_selection(
     page: Page, login,
@@ -25,10 +27,10 @@ def test_project_selection(
 
 
 @pytest.mark.parametrize("company_name, project_name, has_project", [
-    pytest.param("QA Club Lviv", "industrial, movies", True, id="main_company_project_exists"),
-    pytest.param("QA Club Lviv", "nonexistingproject", False, id="main_company_project_doesnot_exists"),
-    pytest.param("Free Projects", "industrial, movies", False, id="free_project_doesnot_exists"),
-    pytest.param("Free Projects", "nonexistingproject", False, id="free_project_doesnot_exists"),
+    pytest.param(Company.QA_CLUB_LVIV, "industrial, movies", True, id="main_company_project_exists"),
+    pytest.param(Company.QA_CLUB_LVIV, "nonexistingproject", False, id="main_company_project_doesnot_exists"),
+    pytest.param(Company.FREE_PROJECTS, "industrial, movies", False, id="free_project_doesnot_exists"),
+    pytest.param(Company.FREE_PROJECTS, "nonexistingproject", False, id="free_project_doesnot_exists"),
 ])
 def test_search_project_in_company(
     page: Page, login,

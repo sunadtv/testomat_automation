@@ -12,6 +12,7 @@ from utils.auth_utils import (
     login_user,
 )
 
+# Load environment variables from the .env file for test configuration
 load_dotenv()
 
 
@@ -59,5 +60,12 @@ def faker() -> Faker:
 
 @pytest.fixture(scope="function")
 def login(page: Page, config: Config):
+    """
+    Log in a valid user before running a test.
+    This fixture navigates to the login page and authenticates using valid credentials from the test configuration.
+
+    Scope:
+        function - executed before each test that requires an authenticated session.
+    """
     open_login_page(page, config)
     login_user(page, config.email, config.password)
