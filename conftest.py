@@ -21,17 +21,6 @@ def config() -> Config:
     """
     Provide application configuration for tests.
     The configuration values are loaded from environment variables defined in the `.env` file.
-
-    Scope:
-        session – created once per test session.
-
-    Returns:
-        Config: Immutable configuration object containing:
-            - base_app_url: Base URL of the application
-            - login_url: Login page URL
-            - sign_up_url: Sign-up page URL
-            - email: Valid test user email
-            - password: Valid test user password
     """
     base_app_url = os.getenv("BASE_APP_URL")
 
@@ -48,12 +37,6 @@ def config() -> Config:
 def faker() -> Faker:
     """
     Provide a shared Faker instance for generating random test data.
-
-    Scope:
-        session - a single Faker instance is reused across tests.
-
-    Returns:
-        Faker: Configured Faker generator.
     """
     return Faker()
 
@@ -63,9 +46,6 @@ def login(page: Page, config: Config):
     """
     Log in a valid user before running a test.
     This fixture navigates to the login page and authenticates using valid credentials from the test configuration.
-
-    Scope:
-        function - executed before each test that requires an authenticated session.
     """
     open_login_page(page, config)
     login_user(page, config.email, config.password)
